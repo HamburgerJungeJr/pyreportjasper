@@ -6,7 +6,6 @@
 
 import os
 import subprocess
-import logging
 import re
 import xml.etree.ElementTree as ET
 
@@ -27,10 +26,6 @@ FORMATS = (
 )
 
 EXECUTABLE = 'jasperstarter'
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 
 class JasperPy:
 
