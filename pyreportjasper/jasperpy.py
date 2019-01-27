@@ -180,16 +180,12 @@ class JasperPy:
         if os.path.isdir(self.path_executable):
             try:
                 output = subprocess.run(
-                    self.command, shell=True, check=True).returncode
+                    self.command, shell=True, check=True, encoding='utf-8', stderr=subprocess.PIPE)
             except AttributeError:
                 output = subprocess.check_call(self.command, shell=True)
             except subprocess.CalledProcessError as e:
-                logger.exception(str(e))
-                raise NameError('Your report has an error and couldn '
-                                r'\'t be processed!\ Try to output the '
-                                'command using the attribute `command;` '
-                                'and run it manually in the console!')
+                raise NameError('Your report has an error and couldn\'t be processed!\n' + e.stderr)
         else:
             raise NameError('Invalid resource directory!')
 
-        return output
+        return output.returncode
